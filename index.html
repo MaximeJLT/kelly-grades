@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Official Transcript - Kelly</title>
+    <title>Official Results - Kelly</title>
     <!-- Police Pixel Art -->
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -31,7 +31,7 @@
 
         .container {
             width: 100%;
-            max-width: 420px;
+            max-width: 400px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -117,104 +117,67 @@
             font-size: 0.75rem;
         }
 
-        /* --- ÉCRAN 2 : LE BULLETIN DE NOTES (LA FEUILLE) --- */
+        /* --- ÉCRAN 2 : LE PAPIER ÉPURÉ --- */
         #paper-screen {
             display: none;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             background: #ffffff;
             border: 3px solid #111111;
             box-shadow: 8px 8px 0px rgba(0,0,0,0.15);
-            padding: 25px 15px;
+            padding: 35px 20px;
             width: 100%;
-            gap: 20px;
-            /* Animation d'une feuille qui glisse du bas vers le haut */
+            gap: 30px;
             animation: slideUpPaper 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .paper-header {
-            border-bottom: 2px dashed #cccccc;
-            padding-bottom: 15px;
-            width: 100%;
-        }
-
-        .title {
+        .ai-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
             font-size: 0.75rem;
             color: #111111;
-            line-height: 1.5;
-            margin-bottom: 5px;
+            line-height: 1.4;
         }
 
-        .subtitle {
-            font-size: 0.6rem;
-            color: #666666;
-        }
-
-        .student-info {
-            text-align: left;
-            width: 100%;
-            font-size: 0.65rem;
-            line-height: 1.8;
-            background: #f8f9fa;
-            padding: 10px;
-            border-left: 3px solid #111111;
+        /* Le monocle dessiné en SVG Pixel Art */
+        .pixel-monocle {
+            width: 22px;
+            height: 22px;
+            image-rendering: pixelated;
+            flex-shrink: 0;
         }
 
         /* Zone de la note (style tampon rouge) */
         .grade-box {
             border: 3px solid #d32f2f;
-            padding: 20px 10px;
+            padding: 30px 10px;
             width: 100%;
             background: #fffafa;
             position: relative;
         }
 
-        .grade-label {
-            font-size: 0.55rem;
-            color: #666666;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-        }
-
         .score-number {
-            font-size: clamp(0.9rem, 4.5vw, 1.25rem);
+            font-size: clamp(0.9rem, 4.5vw, 1.3rem);
             color: #d32f2f;
             line-height: 1.4;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             white-space: nowrap;
             font-weight: bold;
         }
 
         .score-base {
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             color: #111111;
         }
 
-        .verdict {
-            font-size: 0.65rem;
-            line-height: 1.6;
-            color: #222222;
-            padding: 10px;
-            border-top: 1px solid #eeeeee;
-            border-bottom: 1px solid #eeeeee;
-        }
-
-        /* Signature avec le monocle pixel art */
+        /* Petite phrase de fin */
         .signature-area {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
             font-size: 0.65rem;
             color: #444444;
-            margin-top: 5px;
-        }
-
-        /* Le monocle dessiné en SVG Pixel Art */
-        .pixel-monocle {
-            width: 20px;
-            height: 20px;
-            image-rendering: pixelated;
+            line-height: 1.5;
         }
 
         /* --- ANIMATIONS --- */
@@ -244,56 +207,39 @@
             </div>
         </div>
 
-        <!-- Écran de la feuille de notes -->
+        <!-- Écran de la feuille épurée -->
         <div id="paper-screen">
-            <div class="paper-header">
-                <div class="title">ACADEMIC TRANSCRIPT</div>
-                <div class="subtitle">International Beauty & Perfection Jury</div>
-            </div>
-
-            <div class="student-info">
-                CANDIDATE: Kelly<br>
-                SUBJECT: Overall Perfection<br>
-                STATUS: Evaluation Complete
-            </div>
-
-            <div class="grade-box">
-                <div class="grade-label">Final Assigned Grade:</div>
-                <div class="score-number" id="counter">0</div>
-                <div class="score-base">/ 10</div>
-            </div>
-
-            <div class="verdict">
-                <strong>REMARKS:</strong><br><br>
-                The standard 10-point scale exploded when facing such perfection. Off the charts.
-            </div>
-
-            <!-- Signature + Émoji Monocle Pixel Art -->
-            <div class="signature-area">
-                <span>graded by Maxime</span>
+            
+            <!-- Titre + Émoji Monocle Pixel Art -->
+            <div class="ai-header">
+                <span>judged by Maxime's AI :</span>
                 <svg class="pixel-monocle" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Contour et visage jaune -->
                     <path fill="#FFCC00" d="M4,2 h8 v1 h2 v1 h1 v8 h-1 v1 h-2 v1 h-8 v-1 h-2 v-1 h-1 v-8 h1 v-1 h2 z"/>
-                    <!-- Œil gauche normal -->
                     <rect x="4" y="6" width="2" height="2" fill="#000000"/>
-                    <!-- Sourcil gauche -->
                     <rect x="4" y="4" width="2" height="1" fill="#000000"/>
-                    <!-- Sourcil droit levé (côté monocle) -->
                     <rect x="9" y="3" width="3" height="1" fill="#000000"/>
-                    <!-- Œil droit (derrière le monocle) -->
                     <rect x="9" y="6" width="2" height="2" fill="#000000"/>
-                    <!-- Le Monocle (bordure noire + reflet blanc) -->
                     <path fill="none" stroke="#000000" stroke-width="1" d="M7.5,4.5 h5 v5 h-5 z"/>
                     <rect x="8" y="5" width="1" height="1" fill="#FFFFFF"/>
-                    <!-- Chaîne du monocle -->
                     <rect x="12" y="7" width="1" height="1" fill="#000000"/>
                     <rect x="13" y="8" width="1" height="1" fill="#000000"/>
                     <rect x="13" y="9" width="1" height="3" fill="#000000"/>
-                    <!-- Bouche (petit sourire en coin) -->
                     <rect x="6" y="10" width="4" height="1" fill="#000000"/>
                     <rect x="5" y="11" width="1" height="1" fill="#000000"/>
                 </svg>
             </div>
+
+            <!-- Juste le score -->
+            <div class="grade-box">
+                <div class="score-number" id="counter">0</div>
+                <div class="score-base">/ 10</div>
+            </div>
+
+            <!-- Petite phrase en dessous -->
+            <div class="signature-area">
+                finally graded by maxime =))))))
+            </div>
+
         </div>
     </div>
 
