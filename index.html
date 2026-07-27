@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Optimisation mobile : empêche le zoom accidentel sur iOS -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Official Jury Results - Kelly</title>
     <!-- Retro Pixel Art Font -->
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -12,30 +13,37 @@
         * {
             box-sizing: border-box;
             user-select: none;
+            -webkit-user-select: none;
+            /* Supprime le carré gris au tap sur iPhone */
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
             margin: 0;
-            padding: 0;
+            padding: env(safe-area-inset-top) 15px env(safe-area-inset-bottom);
             background-color: #1a0a2a;
             background-image: 
                 radial-gradient(#ff007f 15%, transparent 16%),
                 radial-gradient(#00ffff 15%, transparent 16%);
-            background-size: 60px 60px;
-            background-position: 0 0, 30px 30px;
+            background-size: 40px 40px;
+            background-position: 0 0, 20px 20px;
             font-family: 'Press Start 2P', cursive;
             color: #ffffff;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            overflow: hidden;
+            overflow-x: hidden;
             text-align: center;
         }
 
         .container {
-            max-width: 800px;
-            padding: 20px;
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         /* --- SCREEN 1: THE ENVELOPE --- */
@@ -43,83 +51,81 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 30px;
-            transition: opacity 0.5s ease, transform 0.5s ease;
+            gap: 25px;
+            width: 100%;
+            transition: opacity 0.4s ease, transform 0.4s ease;
         }
 
         .instruction {
-            font-size: 0.9rem;
+            font-size: 0.75rem;
             color: #00ffff;
             text-shadow: 2px 2px 0px #000;
             animation: blink 1.2s infinite;
+            line-height: 1.5;
         }
 
-        /* Pixel Art Envelope */
+        /* Enveloppe dimensionnée pour écrans iPhone */
         .envelope {
             background: #ffe6f2;
-            border: 6px solid #000000;
-            width: 320px;
-            height: 220px;
+            border: 5px solid #000000;
+            width: 280px;
+            height: 190px;
             position: relative;
             cursor: pointer;
-            box-shadow: 10px 10px 0px #ff007f;
+            box-shadow: 8px 8px 0px #ff007f;
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .envelope:hover {
-            transform: translate(-4px, -4px);
-            box-shadow: 14px 14px 0px #ff007f;
+            transition: transform 0.15s, box-shadow 0.15s;
+            touch-action: manipulation;
         }
 
         .envelope:active {
-            transform: translate(2px, 2px);
-            box-shadow: 6px 6px 0px #ff007f;
+            transform: translate(3px, 3px);
+            box-shadow: 4px 4px 0px #ff007f;
         }
 
-        /* Envelope Flaps in CSS */
+        /* Rabats dessinés en CSS calibrés pour 280px de large */
         .envelope::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
-            border-left: 154px solid transparent;
-            border-right: 154px solid transparent;
-            border-top: 90px solid #ff80bf;
+            border-left: 135px solid transparent;
+            border-right: 135px solid transparent;
+            border-top: 80px solid #ff80bf;
             pointer-events: none;
         }
 
         .stamp {
             position: absolute;
-            top: 15px;
-            right: 15px;
-            width: 40px;
-            height: 50px;
-            border: 3px dashed #ff007f;
+            top: 10px;
+            right: 10px;
+            width: 35px;
+            height: 42px;
+            border: 2px dashed #ff007f;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 1.2rem;
+            font-size: 1rem;
             color: #ff007f;
         }
 
         .label {
             background: #ffffff;
-            border: 4px solid #000000;
-            padding: 15px 10px;
-            width: 80%;
+            border: 3px solid #000000;
+            padding: 12px 8px;
+            width: 82%;
             color: #000000;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             line-height: 1.4;
-            box-shadow: 4px 4px 0px rgba(0,0,0,0.2);
+            box-shadow: 3px 3px 0px rgba(0,0,0,0.2);
             z-index: 2;
         }
 
         .label span {
             color: #ff007f;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
         }
 
         /* --- SCREEN 2: THE RESULT --- */
@@ -127,58 +133,57 @@
             display: none;
             flex-direction: column;
             align-items: center;
-            gap: 20px;
-            animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            gap: 18px;
+            width: 100%;
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .header-text {
             color: #00ffff;
-            font-size: 1rem;
-            line-height: 1.6;
-            text-shadow: 3px 3px 0px #000;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            text-shadow: 2px 2px 0px #000;
         }
 
         .score-box {
             background: #000000;
-            border: 6px solid #ff007f;
-            padding: 30px 20px;
-            box-shadow: 10px 10px 0px #00ffff;
+            border: 5px solid #ff007f;
+            padding: 22px 10px;
+            box-shadow: 8px 8px 0px #00ffff;
             width: 100%;
-            max-width: 650px;
-            position: relative;
         }
 
+        /* Taille de police dynamique : s'adapte à la largeur du téléphone ! */
         .score-number {
-            font-size: 1.5rem;
+            font-size: clamp(0.9rem, 4.5vw, 1.3rem);
             color: #ffff00;
-            line-height: 1.5;
-            word-break: break-all;
-            text-shadow: 3px 3px 0px #ff0000;
-            margin-bottom: 10px;
+            line-height: 1.4;
+            text-shadow: 2px 2px 0px #ff0000;
+            margin-bottom: 8px;
+            white-space: nowrap;
         }
 
         .score-base {
-            font-size: 1.2rem;
+            font-size: 1rem;
             color: #ffffff;
         }
 
         .verdict {
             background: #ff007f;
             color: #ffffff;
-            padding: 15px;
-            border: 4px solid #000;
-            font-size: 0.75rem;
-            line-height: 1.6;
-            box-shadow: 6px 6px 0px #000;
-            max-width: 550px;
+            padding: 14px 10px;
+            border: 3px solid #000;
+            font-size: 0.68rem;
+            line-height: 1.5;
+            box-shadow: 5px 5px 0px #000;
+            width: 100%;
         }
 
-        /* Ta signature secrète / clin d'œil */
         .signature {
-            font-size: 0.65rem;
+            font-size: 0.58rem;
             color: #00ffff;
-            text-shadow: 2px 2px 0px #000;
-            margin-top: 10px;
+            text-shadow: 1px 1px 0px #000;
+            margin-top: 8px;
             opacity: 0.9;
         }
 
@@ -189,16 +194,8 @@
         }
 
         @keyframes popIn {
-            0% { transform: scale(0); opacity: 0; }
+            0% { transform: scale(0.2); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
-        }
-
-        /* Mobile Responsive */
-        @media (max-width: 600px) {
-            .score-number { font-size: 1.1rem; }
-            .envelope { width: 280px; height: 190px; }
-            .label { font-size: 0.7rem; }
-            .signature { font-size: 0.55rem; }
         }
     </style>
 </head>
@@ -207,7 +204,7 @@
     <div class="container">
         <!-- Envelope Screen -->
         <div id="envelope-screen">
-            <div class="instruction">▶ CLICK THE LETTER TO OPEN ◀</div>
+            <div class="instruction">▶ TAP THE LETTER TO OPEN ◀</div>
             <div class="envelope" onclick="openEnvelope()">
                 <div class="stamp">♥</div>
                 <div class="label">
@@ -242,23 +239,18 @@
 
     <script>
         function openEnvelope() {
-            // Hide envelope
             const envScreen = document.getElementById('envelope-screen');
             envScreen.style.opacity = '0';
             envScreen.style.transform = 'scale(0.8)';
             
             setTimeout(() => {
                 envScreen.style.display = 'none';
-                // Show result
                 const resScreen = document.getElementById('result-screen');
                 resScreen.style.display = 'flex';
                 
-                // Launch confetti
                 launchConfetti();
-                
-                // Animate numbers
                 animateScore();
-            }, 500);
+            }, 400);
         }
 
         function animateScore() {
@@ -266,23 +258,22 @@
             const target = "10,000,000,000,000";
             let current = 0;
             
-            // Random numbers scrolling effect before showing final score
             const interval = setInterval(() => {
+                // Chiffres aléatoires qui défilent rapidement
                 counterEl.innerText = Math.floor(Math.random() * 9999999999999).toLocaleString('en-US');
                 current++;
-                if (current > 15) {
+                if (current > 12) {
                     clearInterval(interval);
                     counterEl.innerText = target;
-                    // Final confetti explosion
                     launchConfetti();
                 }
-            }, 60);
+            }, 50);
         }
 
         function launchConfetti() {
             confetti({
-                particleCount: 100,
-                spread: 70,
+                particleCount: 80,
+                spread: 60,
                 origin: { y: 0.6 },
                 colors: ['#ff007f', '#00ffff', '#ffff00', '#ffffff']
             });
